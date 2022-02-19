@@ -2,31 +2,14 @@ from re import sub
 import numpy as np
 from flask import Flask
 from flask import request, render_template
+import ast
 
 app = Flask(__name__)
 
 @app.route('/add/<ma1>/<ma2>', methods=["GET", "POST"])
 def add(ma1=None, ma2=None):
-    c = []
-    x1 = []
-    for i in list(ma1):
-        if i.isdigit():
-            x1.append(int(i))
-            if len(x1) == 3:
-                c.append(x1)
-                x1 = []
-        else:
-            continue
-    d = []
-    x2 = []
-    for i in list(ma2):
-        if i.isdigit():
-            x2.append(int(i))
-            if len(x2) == 3:
-                d.append(x2)
-                x2 = []
-        else:
-            continue
+    c = ast.literal_eval(ma1)
+    d = ast.literal_eval(ma2)
     mat1 = np.array(c)
     mat2 = np.array(d)
     res = np.add(mat1,mat2)
@@ -35,26 +18,8 @@ def add(ma1=None, ma2=None):
 
 @app.route('/sub/<ma1>/<ma2>',methods =["GET","POST"])
 def subtract(ma1 = None,ma2 = None):
-    c = []
-    x1 = []
-    for i in list(ma1):
-        if i.isdigit():
-            x1.append(int(i))
-            if len(x1) == 3:
-                c.append(x1)
-                x1 = []
-        else:
-            continue
-    d = []
-    x2 = []
-    for i in list(ma2):
-        if i.isdigit():
-            x2.append(int(i))
-            if len(x2) == 3:
-                d.append(x2)
-                x2 = []
-        else:
-            continue
+    c = ast.literal_eval(ma1)
+    d = ast.literal_eval(ma2)
     mat1 = np.array(c)
     mat2 = np.array(d)
     res = np.subtract(mat1,mat2)
@@ -63,26 +28,8 @@ def subtract(ma1 = None,ma2 = None):
 
 @app.route('/mmul/<ma1>/<ma2>',methods =["GET","POST"])
 def m_mul(ma1,ma2):
-    c = []
-    x1 = []
-    for i in list(ma1):
-        if i.isdigit():
-            x1.append(int(i))
-            if len(x1) == 3:
-                c.append(x1)
-                x1 = []
-        else:
-            continue
-    d = []
-    x2 = []
-    for i in list(ma2):
-        if i.isdigit():
-            x2.append(int(i))
-            if len(x2) == 3:
-                d.append(x2)
-                x2 = []
-        else:
-            continue
+    c = ast.literal_eval(ma1)
+    d = ast.literal_eval(ma2)
     mat1 = np.array(c)
     mat2 = np.array(d)
     res = np.dot(mat1,mat2,out=None)
@@ -92,33 +39,16 @@ def m_mul(ma1,ma2):
 @app.route('/smul/<n>/<ma2>',methods =["GET","POST"])
 def s_mul(n,ma2):
     a = int(n)
-    c = []
-    x1 = []
-    for i in list(ma2):
-        if i.isdigit():
-            x1.append(int(i))
-            if len(x1) == 3:
-                c.append(x1)
-                x1 = []
-        else:
-            continue
+    c = ast.literal_eval(ma2)
     mat1 = np.array(c)
+    return a,mat1
     res = np.multiply(a,mat1)
     res1 = res.tolist()
     return render_template("index.html",data = res1)
 
 @app.route('/tr/<ma1>',methods =["GET","POST"])
 def transpose_(ma1):
-    c = []
-    x1 = []
-    for i in list(ma1):
-        if i.isdigit():
-            x1.append(int(i))
-            if len(x1) == 3:
-                c.append(x1)
-                x1 = []
-        else:
-            continue
+    c = ast.literal_eval(ma1)
     mat1 = np.array(c)
     res = mat1.transpose()
     res1 = res.tolist()
@@ -126,16 +56,7 @@ def transpose_(ma1):
 
 @app.route('/inv/<ma1>',methods =["GET","POST"])
 def inverse(ma1):
-    c = []
-    x1 = []
-    for i in list(ma1):
-        if i.isdigit():
-            x1.append(int(i))
-            if len(x1) == 3:
-                c.append(x1)
-                x1 = []
-        else:
-            continue
+    c = ast.literal_eval(ma1)
     mat1 = np.array(c)
     mat2 = np.linalg.inv(mat1)
     res = []
@@ -149,16 +70,7 @@ def inverse(ma1):
 
 @app.route('/det/<ma1>',methods =["GET","POST"])
 def det(ma1):
-    c = []
-    x1 = []
-    for i in list(ma1):
-        if i.isdigit():
-            x1.append(int(i))
-            if len(x1) == 3:
-                c.append(x1)
-                x1 = []
-        else:
-            continue
+    c = ast.literal_eval(ma1)
     mat1 = np.array(c)
     res = np.linalg.det(mat1)
     res1 = res.tolist()
@@ -166,16 +78,7 @@ def det(ma1):
 
 @app.route('/co/<ma1>',methods =["GET","POST"])
 def cofactor(ma1):
-    c = []
-    x1 = []
-    for i in list(ma1):
-        if i.isdigit():
-            x1.append(int(i))
-            if len(x1) == 3:
-                c.append(x1)
-                x1 = []
-        else:
-            continue
+    c = ast.literal_eval(ma1)
     mat1 = np.array(c)
     determinant = np.linalg.det(mat1)
     adjoint = np.linalg.inv(mat1)*determinant
@@ -191,16 +94,7 @@ def cofactor(ma1):
 
 @app.route('/ad/<ma1>',methods =["GET","POST"])
 def adjoint(ma1):
-    c = []
-    x1 = []
-    for i in list(ma1):
-        if i.isdigit():
-            x1.append(int(i))
-            if len(x1) == 3:
-                c.append(x1)
-                x1 = []
-        else:
-            continue
+    c = ast.literal_eval(ma1)
     mat1 = np.array(c)
     determinant = np.linalg.det(mat1)
     adjoint = np.linalg.inv(mat1)*determinant
