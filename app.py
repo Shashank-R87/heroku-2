@@ -41,7 +41,6 @@ def s_mul(n,ma2):
     a = int(n)
     c = ast.literal_eval(ma2)
     mat1 = np.array(c)
-    return a,mat1
     res = np.multiply(a,mat1)
     res1 = res.tolist()
     return render_template("index.html",data = res1)
