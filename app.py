@@ -5,64 +5,6 @@ from flask import request, render_template
 
 app = Flask(__name__)
 
-
-def convert_o(ma1):
-    c = []
-    x1 = []
-    for i in list(ma1):
-        if i.isdigit():
-            x1.append(int(i))
-            if len(x1) == 3:
-                c.append(x1)
-                x1 = []
-        else:
-            continue
-    mat1 = np.array(c)
-    return mat1
-
-
-def convert_s(n, ma2):
-    a = int(n)
-    c = []
-    x1 = []
-    for i in list(ma2):
-        if i.isdigit():
-            x1.append(int(i))
-            if len(x1) == 3:
-                c.append(x1)
-                x1 = []
-        else:
-            continue
-    mat1 = np.array(c)
-    return a, mat1
-
-
-def convert(ma1, ma2):
-    c = []
-    x1 = []
-    for i in list(ma1):
-        if i.isdigit():
-            x1.append(int(i))
-            if len(x1) == 3:
-                c.append(x1)
-                x1 = []
-        else:
-            continue
-    d = []
-    x2 = []
-    for i in list(ma2):
-        if i.isdigit():
-            x2.append(int(i))
-            if len(x2) == 3:
-                d.append(x2)
-                x2 = []
-        else:
-            continue
-    mat1 = np.array(c)
-    mat2 = np.array(d)
-    return mat1, mat2
-
-
 @app.route('/add/<ma1>/<ma2>', methods=["GET", "POST"])
 def add(ma1=None, ma2=None):
     c = []
