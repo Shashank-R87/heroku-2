@@ -7,8 +7,12 @@ import json
 app = Flask(__name__)
 
 @app.route("/example", methods = ["GET", "POST"])
-def exmple():
+def example():
     return "It Works!"
+
+@app.route("/",methods=["GET", "POST"])
+def home():
+    return "Home Page"
 
 @app.route('/add/<ma1>/<ma2>', methods=["GET", "POST"])
 def add(ma1=None, ma2=None):
